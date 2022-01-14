@@ -8,9 +8,6 @@ import com.exceptions.StudentNotFoundException;
 import com.exceptions.SubjectNotFoundException;
 import org.jetbrains.annotations.NotNull;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -21,7 +18,6 @@ import java.util.Scanner;
 
 public class Client {
 
-    Context con;
     APIInterface s;
     static Client client = new Client();
     Scanner scanner;
@@ -32,15 +28,20 @@ public class Client {
             client.mainLoop();
             client.close();
         }catch (Exception e){
+            e.printStackTrace();
             //TODO: OBSŁUŻ WYJĄTKI GNOJU
         }
     }
 
 
-    void init() throws NamingException, RemoteException, NotBoundException {
-        Registry registry = LocateRegistry.getRegistry("localhost",2022);
+    void init() throws RemoteException, NotBoundException {
+        System.out.println("XD");
+        Registry registry = LocateRegistry.getRegistry("25.51.45.198",2022);
+        System.out.println("XDD");
         s = (APIInterface) registry.lookup("Server");
+        System.out.println("XDDD");
         s.initConnection();
+        System.out.println("XDDDD");
         scanner = new Scanner(System.in);
     }
     void close() throws RemoteException {
