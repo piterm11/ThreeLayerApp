@@ -1,10 +1,11 @@
 package com.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "oceny", schema = "baza")
-public class GradeEntity {
+public class GradeEntity implements Serializable {
     @Id
     @Column(name = "id")
     private int id;
