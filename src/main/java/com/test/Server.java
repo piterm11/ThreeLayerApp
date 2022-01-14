@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
@@ -22,8 +24,9 @@ public class Server extends UnicastRemoteObject implements APIInterface {
     public static void main(String[] args) {
         try {
             Server s = new Server();
-            Context con = new InitialContext();
-            con.bind("rmi://localhost:1099/databaseServer", s);
+
+            Registry registry = LocateRegistry.createRegistry(2022);
+            registry.bind("Server",s);
         } catch (Exception e) {
             e.printStackTrace();
         }

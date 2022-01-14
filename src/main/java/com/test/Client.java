@@ -12,7 +12,10 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,9 +37,9 @@ public class Client {
     }
 
 
-    void init() throws NamingException, RemoteException {
-        con = new InitialContext();
-        s = (APIInterface) con.lookup("rmi://localhost:1099/databaseServer");
+    void init() throws NamingException, RemoteException, NotBoundException {
+        Registry registry = LocateRegistry.getRegistry("localhost",2022);
+        s = (APIInterface) registry.lookup("Server");
         s.initConnection();
         scanner = new Scanner(System.in);
     }

@@ -9,10 +9,11 @@ import org.jetbrains.annotations.NotNull;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-public class API {
+public class API implements Serializable {
     private EntityManagerFactory emf;
     private EntityManager em;
     private final Set<Double> allowedGrades = Set.of(2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0);
