@@ -8,8 +8,6 @@ import com.exceptions.StudentNotFoundException;
 import com.exceptions.SubjectNotFoundException;
 import org.jetbrains.annotations.NotNull;
 
-
-import javax.naming.NamingException;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -65,9 +63,9 @@ public class Client {
                 0. Exit
                 """);
             String text = scanner.nextLine();
-            try {
+            try{
                 int v = Integer.parseInt(text);
-                if (v == 0) break;
+                if(v==0)break;
                 operate(v);
             }catch(NumberFormatException e){
                 System.out.println("Wrong value, try again:");
