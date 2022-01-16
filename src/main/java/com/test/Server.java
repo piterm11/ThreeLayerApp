@@ -46,13 +46,15 @@ public class Server extends UnicastRemoteObject implements APIInterface {
     }
 
     @Override
-    public void updateStudent(@NotNull StudentEntity s, String name, String lastName, int index) throws RemoteException {
-        api.updateStudent(s,name,lastName,index);
+    public void updateStudent(int index, String name, String lastName, int newIndex) throws RemoteException {
+        StudentEntity se = api.findStudent(index);
+        api.updateStudent(se,name,lastName,newIndex);
     }
 
     @Override
-    public void removeStudent(StudentEntity s) throws RemoteException {
-        api.removeStudent(s);
+    public void removeStudent(int index) throws RemoteException {
+        StudentEntity se= api.findStudent(index);
+        api.removeStudent(se);
     }
 
     @Override
@@ -71,13 +73,15 @@ public class Server extends UnicastRemoteObject implements APIInterface {
     }
 
     @Override
-    public void updateSubject(@NotNull SubjectEntity p, String newName) throws RemoteException {
-        api.updateSubject(p,newName);
+    public void updateSubject(String subjectName, String newName) throws RemoteException {
+        SubjectEntity se = api.findSubject(subjectName);
+        api.updateSubject(se,newName);
     }
 
     @Override
-    public void removeSubject(SubjectEntity p) throws RemoteException {
-        api.removeSubject(p);
+    public void removeSubject(String subjectName) throws RemoteException {
+        SubjectEntity se = api.findSubject(subjectName);
+        api.removeSubject(se);
     }
 
     @Override
@@ -96,13 +100,15 @@ public class Server extends UnicastRemoteObject implements APIInterface {
     }
 
     @Override
-    public void updateGrade(@NotNull GradeEntity o, double value) throws RemoteException {
-        api.updateGrade(o,value);
+    public void updateGrade(String subjectName, int studentIndex, double value) throws RemoteException {
+        GradeEntity ge = api.findGrade(subjectName,studentIndex);
+        api.updateGrade(ge,value);
     }
 
     @Override
-    public void removeGrade(GradeEntity o) throws RemoteException {
-        api.removeGrade(o);
+    public void removeGrade(String subjectName, int studentIndex) throws RemoteException {
+        GradeEntity ge = api.findGrade(subjectName,studentIndex);
+        api.removeGrade(ge);
     }
 
     @Override

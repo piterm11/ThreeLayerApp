@@ -160,12 +160,12 @@ public class Client {
                 lastName=se.getNazwisko();
             System.out.println("Insert student index number(leave empty if unchanged):");
             String str = scanner.nextLine();
-            int index;
+            int nIndex;
             if(str.equals(""))
-                index=se.getIndeks();
+                nIndex=se.getIndeks();
             else
-                index = Integer.parseInt(str);
-            s.updateStudent(se,name,lastName,index);
+                nIndex = Integer.parseInt(str);
+            s.updateStudent(se.getIndeks(), name,lastName,nIndex);
         }catch (Exception e){
             throw new Exception(e);
         }
@@ -174,8 +174,7 @@ public class Client {
 
     void removeStudent() throws Exception {
         StudentEntity se = findStudent();
-        if(se!=null)
-            s.removeStudent(se);
+        s.removeStudent(se.getIndeks());
     }
 
     void addGrade() throws Exception {
@@ -218,14 +217,15 @@ public class Client {
             System.out.println("Insert new grade:");
             String str = scanner.nextLine();
             double value = Double.parseDouble(str);
-            s.updateGrade(ge,value);
+            s.updateGrade(ge.getPrzedmiot().getNazwa(), ge.getStudent_id(), value);
         } catch (Exception e) {
             throw new Exception(e);
         }
     }
 
     void removeGrade() throws Exception{
-        s.removeGrade(findGrade());
+        GradeEntity ge = findGrade();
+        s.removeGrade(ge.getPrzedmiot().getNazwa(),ge.getStudent_id());
     }
 
     void addSubject() throws Exception {
@@ -257,14 +257,15 @@ public class Client {
             System.out.println("Found subject!\n"+se);
             System.out.println("Insert new name:");
             String subjectName = scanner.nextLine();
-            s.updateSubject(se,subjectName);
+            s.updateSubject(se.getNazwa(),subjectName);
         }catch (Exception e){
             throw new Exception(e);
         }
     }
 
     void removeSubject() throws Exception {
-        s.removeSubject(findSubject());
+        SubjectEntity se = findSubject();
+        s.removeSubject(se.getNazwa());
     }
     private static void clearScreen() throws Exception {
         try {
