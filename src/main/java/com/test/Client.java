@@ -34,7 +34,7 @@ public class Client {
     }
 
 
-    void init() throws NamingException, RemoteException, NotBoundException {
+    void init() throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry("localhost",2022);
         s = (APIInterface) registry.lookup("Server");
         s.initConnection();
