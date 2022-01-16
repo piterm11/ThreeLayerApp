@@ -8,8 +8,7 @@ import com.exceptions.StudentNotFoundException;
 import com.exceptions.SubjectNotFoundException;
 import org.jetbrains.annotations.NotNull;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
+
 import javax.naming.NamingException;
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -21,7 +20,6 @@ import java.util.Scanner;
 
 public class Client {
 
-    Context con;
     APIInterface s;
     static Client client = new Client();
     Scanner scanner;
@@ -32,6 +30,7 @@ public class Client {
             client.mainLoop();
             client.close();
         }catch (Exception e){
+            e.printStackTrace();
             //TODO: OBSŁUŻ WYJĄTKI GNOJU
         }
     }
@@ -66,12 +65,14 @@ public class Client {
                 0. Exit
                 """);
             String text = scanner.nextLine();
-            try{
+            try {
                 int v = Integer.parseInt(text);
-                if(v==0)break;
+                if (v == 0) break;
                 operate(v);
+            }catch(NumberFormatException e){
+                System.out.println("Wrong value, try again:");
             }catch (Exception e){
-                throw new Exception(e);
+                e.printStackTrace();
             }
             System.out.println("Press enter to continue...");
             scanner.nextLine();
@@ -174,7 +175,9 @@ public class Client {
     }
 
     void removeStudent() throws Exception {
-        s.removeStudent(findStudent());
+        StudentEntity se = findStudent();
+        if(se!=null)
+            s.removeStudent(se);
     }
 
     void addGrade() throws Exception {

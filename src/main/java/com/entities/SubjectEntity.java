@@ -15,7 +15,7 @@ public class SubjectEntity implements Serializable {
     @Column(name = "nazwa")
     private String nazwa;
 
-    @OneToMany(mappedBy = "przedmiot")
+    @OneToMany(mappedBy = "przedmiot",fetch = FetchType.EAGER)
     private List<GradeEntity> oceny;
 
 

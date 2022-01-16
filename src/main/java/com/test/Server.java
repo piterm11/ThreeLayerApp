@@ -7,8 +7,6 @@ import com.entities.SubjectEntity;
 import com.exceptions.*;
 import org.jetbrains.annotations.NotNull;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;

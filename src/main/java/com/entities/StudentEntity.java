@@ -21,7 +21,7 @@ public class StudentEntity implements Serializable {
     @Column(name = "imie")
     private String imie;
 
-    @OneToMany(mappedBy = "student_id")
+    @OneToMany(mappedBy = "student_id",fetch = FetchType.EAGER)
     private List<GradeEntity> oceny;
 
 
