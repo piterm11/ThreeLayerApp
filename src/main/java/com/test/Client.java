@@ -8,6 +8,8 @@ import com.exceptions.StudentNotFoundException;
 import com.exceptions.SubjectNotFoundException;
 import org.jetbrains.annotations.NotNull;
 
+
+import javax.naming.NamingException;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -34,7 +36,7 @@ public class Client {
     }
 
 
-    void init() throws RemoteException, NotBoundException {
+    void init() throws NamingException, RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry("localhost",2022);
         s = (APIInterface) registry.lookup("Server");
         s.initConnection();
@@ -63,9 +65,9 @@ public class Client {
                 0. Exit
                 """);
             String text = scanner.nextLine();
-            try{
+            try {
                 int v = Integer.parseInt(text);
-                if(v==0)break;
+                if (v == 0) break;
                 operate(v);
             }catch(NumberFormatException e){
                 System.out.println("Wrong value, try again:");
@@ -153,19 +155,19 @@ public class Client {
             System.out.println("Insert student name(leave empty if unchanged):");
             String name = scanner.nextLine();
             if(name.equals(""))
-                name=se.getName();
+                name=se.getImie();
             System.out.println("Insert student surname(leave empty if unchanged):");
             String lastName = scanner.nextLine();
             if(lastName.equals(""))
-                lastName=se.getLastName();
+                lastName=se.getNazwisko();
             System.out.println("Insert student index number(leave empty if unchanged):");
             String str = scanner.nextLine();
             int nIndex;
             if(str.equals(""))
-                nIndex=se.getIndex();
+                nIndex=se.getIndeks();
             else
                 nIndex = Integer.parseInt(str);
-            s.updateStudent(se.getIndex(), name,lastName,nIndex);
+            s.updateStudent(se.getIndeks(), name,lastName,nIndex);
         }catch (Exception e){
             throw new Exception(e);
         }
@@ -174,7 +176,7 @@ public class Client {
 
     void removeStudent() throws Exception {
         StudentEntity se = findStudent();
-        s.removeStudent(se.getIndex());
+        s.removeStudent(se.getIndeks());
     }
 
     void addGrade() throws Exception {
@@ -217,7 +219,7 @@ public class Client {
             System.out.println("Insert new grade:");
             String str = scanner.nextLine();
             double value = Double.parseDouble(str);
-            s.updateGrade(ge.getSubject().getSubjectName(), ge.getStudent_id(), value);
+            s.updateGrade(ge.getPrzedmiot().getNazwa(), ge.getStudent_id(), value);
         } catch (Exception e) {
             throw new Exception(e);
         }
@@ -225,7 +227,7 @@ public class Client {
 
     void removeGrade() throws Exception{
         GradeEntity ge = findGrade();
-        s.removeGrade(ge.getSubject().getSubjectName(),ge.getStudent_id());
+        s.removeGrade(ge.getPrzedmiot().getNazwa(),ge.getStudent_id());
     }
 
     void addSubject() throws Exception {
@@ -257,7 +259,7 @@ public class Client {
             System.out.println("Found subject!\n"+se);
             System.out.println("Insert new name:");
             String subjectName = scanner.nextLine();
-            s.updateSubject(se.getSubjectName(),subjectName);
+            s.updateSubject(se.getNazwa(),subjectName);
         }catch (Exception e){
             throw new Exception(e);
         }
@@ -265,7 +267,7 @@ public class Client {
 
     void removeSubject() throws Exception {
         SubjectEntity se = findSubject();
-        s.removeSubject(se.getSubjectName());
+        s.removeSubject(se.getNazwa());
     }
     private static void clearScreen() throws Exception {
         try {
