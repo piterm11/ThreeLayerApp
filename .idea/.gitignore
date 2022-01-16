@@ -6,3 +6,4 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+/libraries/Maven__org_openjfx_javafx_base_win_17_0_0_1.xml
