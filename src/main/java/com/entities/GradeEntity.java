@@ -1,5 +1,12 @@
 package com.entities;
 
+import com.api.API;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.scene.Cursor;
+import javafx.scene.control.Button;
+import javafx.scene.paint.Paint;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -44,6 +51,9 @@ public class GradeEntity implements Serializable {
         return subject;
     }
 
+    public StringProperty getSubjectName() {
+        return new SimpleStringProperty(subject.getSubjectName());
+    }
     public void setSubject(SubjectEntity przedmiot) {
         this.subject = przedmiot;
     }
@@ -56,7 +66,25 @@ public class GradeEntity implements Serializable {
     public void setGrade(double ocena) {
         this.grade = ocena;
     }
-
+    @Transient
+    private Button removeButton;
+    {
+        this.removeButton = new Button("X");
+        this.removeButton.setOnMouseClicked(event -> remove());
+        this.removeButton.setCursor(Cursor.HAND);
+        this.removeButton.setStyle("-fx-background-color: #c21d1d;" );
+        this.removeButton.setTextFill(Paint.valueOf("WHITE"));
+    }
+    public void remove(){
+        API api = new API();
+        api.initConnection();
+        GradeEntity ge = api.findGrade(this.subject.getSubjectName(), this.student_id);
+        api.removeGrade(ge);
+        api.closeConnection();
+    }
+    public Button getRemoveButton() {
+        return removeButton;
+    }
 
     @Override
     public String toString() {

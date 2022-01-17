@@ -1,5 +1,14 @@
 package com.entities;
 
+import com.api.API;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.scene.Cursor;
+import javafx.scene.control.Button;
+import javafx.scene.paint.Paint;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -18,7 +27,25 @@ public class SubjectEntity implements Serializable {
     @OneToMany(mappedBy = "subject",fetch = FetchType.EAGER)
     private List<GradeEntity> grades;
 
-
+    @Transient
+    private Button removeButton;
+    {
+        this.removeButton = new Button("X");
+        this.removeButton.setOnMouseClicked(event -> remove());
+        this.removeButton.setCursor(Cursor.HAND);
+        this.removeButton.setStyle("-fx-background-color: #c21d1d;" );
+        this.removeButton.setTextFill(Paint.valueOf("WHITE"));
+    }
+    public void remove(){
+        API api = new API();
+        api.initConnection();
+        SubjectEntity se = api.findSubject(this.subjectName);
+        api.removeSubject(se);
+        api.closeConnection();
+    }
+    public Button getRemoveButton() {
+        return removeButton;
+    }
     public int getId() {
         return id;
     }
@@ -43,12 +70,12 @@ public class SubjectEntity implements Serializable {
         this.grades = grade;
     }
 
-    public double getAverage(){
+    public StringProperty getAverage(){
         double ret = 0f;
         for(GradeEntity ge : grades){
             ret+=ge.getGrade();
         }
-        return ret/ grades.size();
+        return new SimpleStringProperty(String.format("%.2f", ret / grades.size()));
     }
     @Override
     public String toString() {

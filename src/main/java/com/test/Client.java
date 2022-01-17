@@ -9,7 +9,6 @@ import com.exceptions.SubjectNotFoundException;
 import org.jetbrains.annotations.NotNull;
 
 
-import javax.naming.NamingException;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -36,7 +35,7 @@ public class Client {
     }
 
 
-    void init() throws NamingException, RemoteException, NotBoundException {
+    void init() throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry("localhost",2022);
         s = (APIInterface) registry.lookup("Server");
         s.initConnection();

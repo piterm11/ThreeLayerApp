@@ -1,5 +1,6 @@
 package com.client;
 
+import com.api.API;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,7 +14,8 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
         stage.setTitle("Client App");
-
+        MainController controller = fxmlLoader.getController();
+        stage.setOnHidden(e -> controller.shutdown());
         stage.setScene(scene);
         stage.show();
     }

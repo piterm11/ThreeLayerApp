@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<DialogPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <header>
+      <Label alignment="CENTER" prefHeight="49.0" prefWidth="274.0" text="Grade">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </header>
+   <content>
+      <AnchorPane prefHeight="83.0" prefWidth="288.0">
+         <children>
+            <TextField fx:id="subjectName" layoutX="96.0" layoutY="14.0" />
+            <TextField fx:id="grade" layoutX="96.0" layoutY="42.0" />
+            <Label layoutX="19.0" layoutY="18.0" prefHeight="16.0" prefWidth="57.0" text="Subject" />
+            <Label layoutX="19.0" layoutY="46.0" prefHeight="16.0" prefWidth="54.0" text="Grade" />
+         </children>
+      </AnchorPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+</DialogPane>

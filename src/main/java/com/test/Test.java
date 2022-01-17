@@ -56,8 +56,10 @@ public class Test {
                 int v = Integer.parseInt(text);
                 if(v==0)break;
                 operate(v);
+            }catch(NumberFormatException e){
+                System.out.println("Wrong value, try again:");
             }catch (Exception e){
-                throw new Exception(e);
+                e.printStackTrace();
             }
             System.out.println("Press enter to continue...");
             scanner.nextLine();
@@ -97,7 +99,7 @@ public class Test {
     }
 
     void display(@NotNull List list){
-        for(Object o : list){
+        for(var o : list){
             System.out.println(o);
         }
     }

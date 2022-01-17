@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<DialogPane prefHeight="209.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <header>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="360.0" text="Student">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </header>
+   <content>
+      <AnchorPane prefHeight="195.0" prefWidth="360.0">
+         <children>
+            <Label layoutX="45.0" layoutY="25.0" prefHeight="16.0" prefWidth="78.0" text="First Name" />
+            <Label layoutX="45.0" layoutY="53.0" prefHeight="16.0" prefWidth="78.0" text="Last Name" />
+            <Label layoutX="45.0" layoutY="83.0" prefHeight="16.0" prefWidth="78.0" text="Index" />
+            <TextField fx:id="firstName" layoutX="123.0" layoutY="20.0" />
+            <TextField fx:id="lastName" layoutX="123.0" layoutY="48.0" />
+            <TextField fx:id="index" layoutX="123.0" layoutY="78.0" />
+         </children>
+      </AnchorPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+</DialogPane>

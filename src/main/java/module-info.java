@@ -5,7 +5,13 @@ module com.client {
     requires java.rmi;
     requires java.persistence;
     requires org.jetbrains.annotations;
+    requires java.sql;
+    requires mysql.connector.java;
+    requires org.hibernate.commons.annotations;
+    requires org.hibernate.orm.core;
 
+    opens com.entities to org.hibernate.orm.core, javafx.base;
     opens com.client to javafx.fxml;
     exports com.client;
+    exports com.test;
 }
