@@ -13,16 +13,16 @@ public class StudentEntity implements Serializable {
     private int id;
     @Basic
     @Column(name = "indeks")
-    private int indeks;
+    private int index;
     @Basic
     @Column(name = "nazwisko")
-    private String nazwisko;
+    private String lastName;
     @Basic
     @Column(name = "imie")
-    private String imie;
+    private String name;
 
     @OneToMany(mappedBy = "student_id",fetch = FetchType.EAGER)
-    private List<GradeEntity> oceny;
+    private List<GradeEntity> grades;
 
 
     public int getId() {
@@ -33,43 +33,51 @@ public class StudentEntity implements Serializable {
         this.id = id;
     }
 
-    public int getIndeks() {
-        return indeks;
+    public int getIndex() {
+        return index;
     }
 
-    public void setIndeks(int indeks) {
-        this.indeks = indeks;
+    public void setIndex(int indeks) {
+        this.index = indeks;
     }
 
-    public String getNazwisko() {
-        return nazwisko;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setNazwisko(String nazwisko) {
-        this.nazwisko = nazwisko;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getImie() {
-        return imie;
+    public String getName() {
+        return name;
     }
 
-    public void setImie(String imie) {
-        this.imie = imie;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<GradeEntity> getOceny() {
-        return oceny;
+    public List<GradeEntity> getGrades() {
+        return grades;
     }
 
-    public void setOceny(List<GradeEntity> oceny) {
-        this.oceny = oceny;
+    public void setGrades(List<GradeEntity> grades) {
+        this.grades = grades;
+    }
+
+    public double getAverage(){
+        double ret = 0f;
+        for(GradeEntity ge : grades){
+            ret+=ge.getGrade();
+        }
+        return ret/ grades.size();
     }
 
     @Override
     public String toString() {
-        return "indeks: " + indeks + "\nnazwisko: " + nazwisko +"\nimie: " + imie + "\noceny: "+ oceny;
+        return "indeks: " + index + "\nnazwisko: " + lastName +"\nimie: " + name + "\noceny: "+ grades;
     }
     public String toString(boolean onlyPersonalData) {
-        return "indeks: " + indeks + "\nnazwisko: " + nazwisko +"\nimie: " + imie;
+        return "indeks: " + index + "\nnazwisko: " + lastName +"\nimie: " + name;
     }
 }

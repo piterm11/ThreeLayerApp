@@ -140,16 +140,16 @@ public class Test {
             System.out.println("Insert student name(leave empty if unchanged):");
             String name = scanner.nextLine();
             if(name.equals(""))
-                name=se.getImie();
+                name=se.getName();
             System.out.println("Insert student surname(leave empty if unchanged):");
             String lastName = scanner.nextLine();
             if(lastName.equals(""))
-                lastName=se.getNazwisko();
+                lastName=se.getLastName();
             System.out.println("Insert student index number(leave empty if unchanged):");
             String str = scanner.nextLine();
             int index;
             if(str.equals(""))
-                index=se.getIndeks();
+                index=se.getIndex();
             else
                 index = Integer.parseInt(str);
             api.updateStudent(se,name,lastName,index);

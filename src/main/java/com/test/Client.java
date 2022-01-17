@@ -153,19 +153,19 @@ public class Client {
             System.out.println("Insert student name(leave empty if unchanged):");
             String name = scanner.nextLine();
             if(name.equals(""))
-                name=se.getImie();
+                name=se.getName();
             System.out.println("Insert student surname(leave empty if unchanged):");
             String lastName = scanner.nextLine();
             if(lastName.equals(""))
-                lastName=se.getNazwisko();
+                lastName=se.getLastName();
             System.out.println("Insert student index number(leave empty if unchanged):");
             String str = scanner.nextLine();
             int nIndex;
             if(str.equals(""))
-                nIndex=se.getIndeks();
+                nIndex=se.getIndex();
             else
                 nIndex = Integer.parseInt(str);
-            s.updateStudent(se.getIndeks(), name,lastName,nIndex);
+            s.updateStudent(se.getIndex(), name,lastName,nIndex);
         }catch (Exception e){
             throw new Exception(e);
         }
@@ -174,7 +174,7 @@ public class Client {
 
     void removeStudent() throws Exception {
         StudentEntity se = findStudent();
-        s.removeStudent(se.getIndeks());
+        s.removeStudent(se.getIndex());
     }
 
     void addGrade() throws Exception {
@@ -217,7 +217,7 @@ public class Client {
             System.out.println("Insert new grade:");
             String str = scanner.nextLine();
             double value = Double.parseDouble(str);
-            s.updateGrade(ge.getPrzedmiot().getNazwa(), ge.getStudent_id(), value);
+            s.updateGrade(ge.getSubject().getSubjectName(), ge.getStudent_id(), value);
         } catch (Exception e) {
             throw new Exception(e);
         }
@@ -225,7 +225,7 @@ public class Client {
 
     void removeGrade() throws Exception{
         GradeEntity ge = findGrade();
-        s.removeGrade(ge.getPrzedmiot().getNazwa(),ge.getStudent_id());
+        s.removeGrade(ge.getSubject().getSubjectName(),ge.getStudent_id());
     }
 
     void addSubject() throws Exception {
@@ -257,7 +257,7 @@ public class Client {
             System.out.println("Found subject!\n"+se);
             System.out.println("Insert new name:");
             String subjectName = scanner.nextLine();
-            s.updateSubject(se.getNazwa(),subjectName);
+            s.updateSubject(se.getSubjectName(),subjectName);
         }catch (Exception e){
             throw new Exception(e);
         }
@@ -265,7 +265,7 @@ public class Client {
 
     void removeSubject() throws Exception {
         SubjectEntity se = findSubject();
-        s.removeSubject(se.getNazwa());
+        s.removeSubject(se.getSubjectName());
     }
     private static void clearScreen() throws Exception {
         try {

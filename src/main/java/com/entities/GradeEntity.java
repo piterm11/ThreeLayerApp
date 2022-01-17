@@ -16,11 +16,11 @@ public class GradeEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "przedmiot",referencedColumnName = "id")
-    private SubjectEntity przedmiot;
+    private SubjectEntity subject;
 
     @Basic
     @Column(name = "ocena")
-    private double ocena;
+    private double grade;
 
     public int getId() {
         return id;
@@ -34,32 +34,32 @@ public class GradeEntity implements Serializable {
         return student_id;
     }
 
-    public void setStudent_id(int indeks) {
-        this.student_id = indeks;
+    public void setStudent_id(int index) {
+        this.student_id = index;
     }
 
 
 
-    public SubjectEntity getPrzedmiot() {
-        return przedmiot;
+    public SubjectEntity getSubject() {
+        return subject;
     }
 
-    public void setPrzedmiot(SubjectEntity przedmiot) {
-        this.przedmiot = przedmiot;
+    public void setSubject(SubjectEntity przedmiot) {
+        this.subject = przedmiot;
     }
 
 
-    public double getOcena() {
-        return ocena;
+    public double getGrade() {
+        return grade;
     }
 
-    public void setOcena(double ocena) {
-        this.ocena = ocena;
+    public void setGrade(double ocena) {
+        this.grade = ocena;
     }
 
 
     @Override
     public String toString() {
-        return przedmiot + ": " + ocena;
+        return subject + ": " + grade;
     }
 }

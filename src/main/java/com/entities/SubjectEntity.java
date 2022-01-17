@@ -13,10 +13,10 @@ public class SubjectEntity implements Serializable {
     private int id;
     @Basic
     @Column(name = "nazwa")
-    private String nazwa;
+    private String subjectName;
 
-    @OneToMany(mappedBy = "przedmiot",fetch = FetchType.EAGER)
-    private List<GradeEntity> oceny;
+    @OneToMany(mappedBy = "subject",fetch = FetchType.EAGER)
+    private List<GradeEntity> grades;
 
 
     public int getId() {
@@ -27,24 +27,31 @@ public class SubjectEntity implements Serializable {
         this.id = id;
     }
 
-    public String getNazwa() {
-        return nazwa;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public void setNazwa(String nazwa) {
-        this.nazwa = nazwa;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
-    public List<GradeEntity> getOceny() {
-        return oceny;
+    public List<GradeEntity> getGrades() {
+        return grades;
     }
 
-    public void setOceny(List<GradeEntity> oceny) {
-        this.oceny = oceny;
+    public void setGrades(List<GradeEntity> grade) {
+        this.grades = grade;
     }
 
+    public double getAverage(){
+        double ret = 0f;
+        for(GradeEntity ge : grades){
+            ret+=ge.getGrade();
+        }
+        return ret/ grades.size();
+    }
     @Override
     public String toString() {
-        return nazwa;
+        return subjectName;
     }
 }
