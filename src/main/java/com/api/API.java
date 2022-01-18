@@ -46,10 +46,10 @@ public class API implements Serializable {
     }
     public void removeStudent(StudentEntity s){
         em.getTransaction().begin();
-        em.remove(s);
         for (GradeEntity o : s.getGrades()) {
             em.remove(o);
         }
+        em.remove(s);
         em.getTransaction().commit();
     }
 
@@ -84,10 +84,10 @@ public class API implements Serializable {
     }
     public void removeSubject(SubjectEntity p){
         em.getTransaction().begin();
-        em.remove(p);
         for (GradeEntity o : p.getGrades()) {
             em.remove(o);
         }
+        em.remove(p);
         em.getTransaction().commit();
     }
     public SubjectEntity findSubject(String subjectName){
@@ -118,11 +118,11 @@ public class API implements Serializable {
         if(o!=null)
             throw new GradeExistsException("Student with index "+studentIndex+" already has grade in "+subjectName+"!");
         em.getTransaction().begin();
-        o = new GradeEntity();
-        o.setSubject(pe);
-        o.setGrade(value);
-        o.setStudent_id(se.getId());
-        em.persist(o);
+        GradeEntity g = new GradeEntity();
+        g.setSubject(pe);
+        g.setGrade(value);
+        g.setStudent_id(se.getId());
+        em.persist(g);
         em.getTransaction().commit();
     }
 

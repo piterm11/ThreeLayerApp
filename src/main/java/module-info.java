@@ -12,6 +12,10 @@ module com.client {
 
     opens com.entities to org.hibernate.orm.core, javafx.base;
     opens com.client to javafx.fxml;
+
     exports com.client;
     exports com.test;
+    exports com.api;
+    exports com.entities;
+    exports com.exceptions;
 }

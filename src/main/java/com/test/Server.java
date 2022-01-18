@@ -96,6 +96,14 @@ public class Server extends UnicastRemoteObject implements APIInterface {
 
     @Override
     public void addGrade(String subjectName, int studentIndex, double value) throws SubjectNotFoundException, StudentNotFoundException, GradeExistsException, GradeOutOfRangeException, RemoteException {
+        SubjectEntity se = findSubject(subjectName);
+        if(se == null) {
+            try {
+                api.addSubject(subjectName);
+            } catch (SubjectExistsException e) {
+                e.printStackTrace();
+            }
+        }
         api.addGrade(subjectName,studentIndex,value);
     }
 

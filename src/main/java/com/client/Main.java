@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 public class Main extends Application {
     @Override
@@ -15,7 +16,13 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
         stage.setTitle("Client App");
         MainController controller = fxmlLoader.getController();
-        stage.setOnHidden(e -> controller.shutdown());
+        stage.setOnHidden(e -> {
+            try {
+                controller.shutdown();
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        });
         stage.setScene(scene);
         stage.show();
     }
