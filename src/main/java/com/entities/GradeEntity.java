@@ -66,22 +66,14 @@ public class GradeEntity implements Serializable {
     public void setGrade(double ocena) {
         this.grade = ocena;
     }
+
     @Transient
     private Button removeButton;
-    {
-        this.removeButton = new Button("X");
-        this.removeButton.setOnMouseClicked(event -> remove());
-        this.removeButton.setCursor(Cursor.HAND);
-        this.removeButton.setStyle("-fx-background-color: #c21d1d;" );
-        this.removeButton.setTextFill(Paint.valueOf("WHITE"));
+
+    public void setRemoveButton(Button removeButton) {
+        this.removeButton = removeButton;
     }
-    public void remove(){
-        API api = new API();
-        api.initConnection();
-        GradeEntity ge = api.findGrade(this.subject.getSubjectName(), this.student_id);
-        api.removeGrade(ge);
-        api.closeConnection();
-    }
+
     public Button getRemoveButton() {
         return removeButton;
     }

@@ -11,8 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Paint;
 
 import java.io.IOException;
 import java.net.URL;
@@ -91,14 +93,50 @@ public class MainController implements Initializable {
     private void refresh() {
         getData();
         students.setItems(studentsData);
+        for (var row: studentsData) {
+            Button removeButton = new Button("X");
+            removeButton.setOnMouseClicked(event -> removeStudent(row.getIndex()));
+            removeButton.setCursor(Cursor.HAND);
+            removeButton.setStyle("-fx-background-color: #c21d1d;" );
+            removeButton.setTextFill(Paint.valueOf("WHITE"));
+            row.setRemoveButton(removeButton);
+        }
         averages.setItems(subjectsData);
+        for (var row: subjectsData) {
+            Button removeButton = new Button("X");
+            removeButton.setOnMouseClicked(event -> removeSubject(row.getSubjectName()));
+            removeButton.setCursor(Cursor.HAND);
+            removeButton.setStyle("-fx-background-color: #c21d1d;" );
+            removeButton.setTextFill(Paint.valueOf("WHITE"));
+            row.setRemoveButton(removeButton);
+        }
+        if (gradesData == null) return;
         grades.setItems(gradesData);
+        for (var row: gradesData) {
+            Button removeButton = new Button("X");
+            removeButton.setOnMouseClicked(event -> removeGrade(row.getSubjectName().getValue(), row.getStudent_id()));
+            removeButton.setCursor(Cursor.HAND);
+            removeButton.setStyle("-fx-background-color: #c21d1d;" );
+            removeButton.setTextFill(Paint.valueOf("WHITE"));
+            row.setRemoveButton(removeButton);
+        }
     }
-
+    public void removeStudent(int index){
+        StudentEntity se = api.findStudent(index);
+        api.removeStudent(se);
+    }
+    public void removeGrade(String subjectName, int index){
+        GradeEntity ge = api.findGrade(subjectName, index);
+        api.removeGrade(ge);
+    }
+    public void removeSubject(String subjectName){
+        SubjectEntity se = api.findSubject(subjectName);
+        api.removeSubject(se);
+    }
     public void onClick(){
         if (students.getSelectionModel().getSelectedItem() == null) return;
         gradesData = FXCollections.observableList(students.getSelectionModel().getSelectedItem().getGrades());
-        grades.setItems(gradesData);
+        refresh();
     }
     public void onAddStudent() throws IOException {
         Dialog<ButtonType> dialog = new Dialog<>();

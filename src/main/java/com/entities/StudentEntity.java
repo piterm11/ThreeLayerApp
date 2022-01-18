@@ -37,20 +37,11 @@ public class StudentEntity implements Serializable {
 
     @Transient
     private Button removeButton;
-    {
-        this.removeButton = new Button("X");
-        this.removeButton.setOnMouseClicked(event -> remove());
-        this.removeButton.setCursor(Cursor.HAND);
-        this.removeButton.setStyle("-fx-background-color: #c21d1d;" );
-        this.removeButton.setTextFill(Paint.valueOf("WHITE"));
+
+    public void setRemoveButton(Button removeButton) {
+        this.removeButton = removeButton;
     }
-    public void remove(){
-        API api = new API();
-        api.initConnection();
-        StudentEntity se = api.findStudent(this.index);
-        api.removeStudent(se);
-        api.closeConnection();
-    }
+
     public Button getRemoveButton() {
         return removeButton;
     }
